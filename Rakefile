@@ -1,4 +1,4 @@
-MAIN_HTML = 'Main.html'
+MAIN_HTML = 'src/Main.html'
 
 
 rule '.html' => '.elm' do |t|

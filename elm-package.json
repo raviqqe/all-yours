@@ -4,7 +4,7 @@
     "repository": "https://github.com/raviqqe/all-yours.git",
     "license": "The Unlicense",
     "source-directories": [
-        "."
+        "src"
     ],
     "exposed-modules": [],
     "dependencies": {
