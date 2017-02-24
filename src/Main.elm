@@ -1,9 +1,11 @@
+import AnimationFrame exposing (..)
 import Color exposing (..)
 import Collage exposing (..)
 import Element exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Keyboard exposing (..)
+import Time exposing (..)
 
 import Human exposing (Human)
 import Msg exposing (..)
@@ -78,6 +80,10 @@ main : Program Never Model Msg
 main = program
   { init = initialModel ! []
   , update = update
-  , subscriptions = \_ -> Keyboard.downs keyCodeToMsg
+  , subscriptions = \_ ->
+      Sub.batch
+        [ Keyboard.downs keyCodeToMsg
+        , AnimationFrame.diffs (inSeconds >> Delta)
+        ]
   , view = view
   }

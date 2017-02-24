@@ -4,6 +4,7 @@ import Collage exposing (..)
 import Element exposing (..)
 
 import Msg exposing (..)
+import Phisics
 
 
 -- Style
@@ -27,6 +28,7 @@ type alias Human =
 update : Msg -> Human -> Human
 update msg human = case msg of
   Jump -> { human | vy = 10 }
+  Delta dt -> Phisics.update dt human
   NoOp -> human
 
 

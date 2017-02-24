@@ -1,3 +1,6 @@
 module Msg exposing (..)
 
-type Msg = Jump | NoOp
+import Time exposing (..)
+
+
+type Msg = Jump | Delta Time | NoOp
