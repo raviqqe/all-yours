@@ -4,6 +4,8 @@ import Element exposing (..)
 import Html exposing (..)
 import Keyboard exposing (..)
 
+import Human exposing (Human)
+
 
 -- Style
 
@@ -15,13 +17,6 @@ dummyImageUrl = "https://www.raviqqe.com/favicon.png"
 
 
 -- Model
-
-type alias Human =
-  { x : Float
-  , y : Float
-  , vx : Float
-  , vy : Float
-  }
 
 type alias Model =
   { me : Human
@@ -46,7 +41,7 @@ keyCodeToMsg code = case code of
 -- Update
 
 update : Msg -> Model -> (Model, Cmd Msg)
-update _ model = model ! []
+update _ model = { model | me = Human.update model.me } ! []
 
 
 -- View
@@ -57,14 +52,8 @@ view model =
   container gameWidth gameHeight middle <|
   collage gameWidth gameHeight
     [ rect gameWidth gameHeight |> filled skyColor
-    , viewHuman model.me
+    , Human.view model.me
     ]
-
-viewHuman : Human -> Form
-viewHuman human =
-  fittedImage 10 20 dummyImageUrl |>
-  toForm |>
-  move (human.x, human.y)
 
 
 -- Main
