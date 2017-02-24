@@ -11,8 +11,14 @@ import Human exposing (Human)
 
 (gameWidth, gameHeight) = (600, 400)
 
+earthHeight : Float
+earthHeight = 100
+
 skyColor : Color
 skyColor = rgb 128 128 255
+
+earthColor : Color
+earthColor = rgb 128 255 128
 
 
 -- Model
@@ -23,7 +29,7 @@ type alias Model =
 
 initialModel : Model
 initialModel =
-  { me = Human 0 0 0 0
+  { me = Human 0 (earthHeight - gameHeight/2) 0 0
   }
 
 
@@ -50,7 +56,11 @@ view model =
   toHtml <|
   container gameWidth gameHeight middle <|
   collage gameWidth gameHeight
-    [ rect gameWidth gameHeight |> filled skyColor
+    [ rect gameWidth gameHeight |>
+        filled skyColor
+    , rect gameWidth earthHeight |>
+        filled earthColor |>
+        moveY (earthHeight/2 - gameHeight/2)
     , Human.view model.me
     ]
 
