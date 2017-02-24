@@ -2,6 +2,7 @@ import Color exposing (..)
 import Collage exposing (..)
 import Element exposing (..)
 import Html exposing (..)
+import Keyboard exposing (..)
 
 
 -- Style
@@ -34,13 +35,18 @@ initialModel =
 
 -- Input
 
-type Msg = NoOp
+type Msg = Jump | NoOp
+
+keyCodeToMsg : KeyCode -> Msg
+keyCodeToMsg code = case code of
+  32 -> Jump
+  _ -> NoOp
 
 
 -- Update
 
-update : Msg -> Model -> Model
-update _ model = model
+update : Msg -> Model -> (Model, Cmd Msg)
+update _ model = model ! []
 
 
 -- View
@@ -63,8 +69,9 @@ viewHuman human =
 
 -- Main
 
-main = beginnerProgram
-  { model = initialModel
+main = program
+  { init = initialModel ! []
+  , update = update
+  , subscriptions = \_ -> Keyboard.downs keyCodeToMsg
   , view = view
-  , update = \msg model -> update msg model
   }
