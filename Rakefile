@@ -1,5 +1,5 @@
 rule '.html' => '.elm' do |t|
-  sh "elm-make --yes --output #{t.name} #{t.source}"
+  sh "elm-make --yes --warn --output #{t.name} #{t.source}"
 end
 
 task :mantest do
