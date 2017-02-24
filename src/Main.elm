@@ -2,6 +2,7 @@ import Color exposing (..)
 import Collage exposing (..)
 import Element exposing (..)
 import Html exposing (..)
+import Html.Attributes exposing (..)
 import Keyboard exposing (..)
 
 import Human exposing (Human)
@@ -53,16 +54,23 @@ update _ model = { model | me = Human.update model.me } ! []
 
 view : Model -> Html Msg
 view model =
-  toHtml <|
-  container gameWidth gameHeight middle <|
-  collage gameWidth gameHeight
-    [ rect gameWidth gameHeight |>
-        filled skyColor
-    , rect gameWidth earthHeight |>
-        filled earthColor |>
-        moveY (earthHeight/2 - gameHeight/2)
-    , Human.view model.me
+  body [] [
+    div [style [
+      ("margin", "10px auto 0 auto"),
+      ("width", toString gameWidth ++ "px")
+    ]] [
+      toHtml <|
+      container gameWidth gameHeight middle <|
+      collage gameWidth gameHeight
+        [ rect gameWidth gameHeight |>
+            filled skyColor
+        , rect gameWidth earthHeight |>
+            filled earthColor |>
+            moveY (earthHeight/2 - gameHeight/2)
+        , Human.view model.me
+        ]
     ]
+  ]
 
 
 -- Main
