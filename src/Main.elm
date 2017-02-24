@@ -28,12 +28,12 @@ earthColor = rgb 128 255 128
 -- Model
 
 type alias Model =
-  { me : Human
+  { human : Human
   }
 
 initialModel : Model
 initialModel =
-  { me = Human 0 (earthHeight - gameHeight/2) 0 0
+  { human = Human 0 (earthHeight - gameHeight/2) 0 0
   }
 
 
@@ -48,7 +48,7 @@ keyCodeToMsg code = case code of
 -- Update
 
 update : Msg -> Model -> (Model, Cmd Msg)
-update msg model = { model | me = Human.update msg model.me } ! []
+update msg model = { model | human = Human.update msg model.human } ! []
 
 
 -- View
@@ -68,7 +68,7 @@ view model =
         , rect gameWidth earthHeight |>
             filled earthColor |>
             moveY (earthHeight/2 - gameHeight/2)
-        , Human.view model.me
+        , Human.view model.human
         ]
     ]
   ]
