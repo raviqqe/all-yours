@@ -7,33 +7,31 @@ import Html.Attributes exposing (..)
 import Keyboard exposing (..)
 import Time exposing (..)
 
+import Camera exposing (Camera, camera)
+import Earth exposing (Earth, earth)
 import Human exposing (Human)
 import Msg exposing (..)
 
 
 -- Style
 
-(gameWidth, gameHeight) = (600, 400)
-
-earthHeight : Float
-earthHeight = 100
-
 skyColor : Color
 skyColor = rgb 128 128 255
-
-earthColor : Color
-earthColor = rgb 128 255 128
 
 
 -- Model
 
 type alias Model =
   { human : Human
+  , earth : Earth
+  , camera : Camera
   }
 
 initialModel : Model
 initialModel =
-  { human = Human 0 (earthHeight - gameHeight/2) 0 0
+  { human = Human 0 (earth.height - (toFloat camera.height) / 2) 0 0
+  , earth = earth
+  , camera = camera
   }
 
 
@@ -58,16 +56,14 @@ view model =
   body [] [
     div [style [
       ("margin", "10px auto 0 auto"),
-      ("width", toString gameWidth ++ "px")
+      ("width", toString model.camera.width ++ "px")
     ]] [
       toHtml <|
-      container gameWidth gameHeight middle <|
-      collage gameWidth gameHeight
-        [ rect gameWidth gameHeight |>
+      container model.camera.width model.camera.height middle <|
+      collage model.camera.width model.camera.height
+        [ rect (toFloat model.camera.width) (toFloat model.camera.height) |>
             filled skyColor
-        , rect gameWidth earthHeight |>
-            filled earthColor |>
-            moveY (earthHeight/2 - gameHeight/2)
+        , Earth.view model.earth model.camera
         , Human.view model.human
         ]
     ]
