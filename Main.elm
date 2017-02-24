@@ -7,7 +7,10 @@ import Html exposing (..)
 -- Style
 
 (gameWidth, gameHeight) = (600, 400)
+
 skyColor = rgb 128 128 255
+
+dummyImageUrl = "https://www.raviqqe.com/favicon.png"
 
 
 -- Model
@@ -48,7 +51,14 @@ view model =
   container gameWidth gameHeight middle <|
   collage gameWidth gameHeight
     [ rect gameWidth gameHeight |> filled skyColor
+    , viewHuman model.me
     ]
+
+viewHuman : Human -> Form
+viewHuman human =
+  fittedImage 10 20 dummyImageUrl |>
+  toForm |>
+  move (human.x, human.y)
 
 
 -- Main
