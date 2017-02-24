@@ -3,6 +3,8 @@ module Human exposing (..)
 import Collage exposing (..)
 import Element exposing (..)
 
+import Msg exposing (..)
+
 
 -- Style
 
@@ -22,8 +24,10 @@ type alias Human =
 
 -- Update
 
-update : Human -> Human
-update human = human
+update : Msg -> Human -> Human
+update msg human = case msg of
+  Jump -> { human | vy = 10 }
+  NoOp -> human
 
 
 -- View

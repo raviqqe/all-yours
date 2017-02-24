@@ -6,6 +6,7 @@ import Html.Attributes exposing (..)
 import Keyboard exposing (..)
 
 import Human exposing (Human)
+import Msg exposing (..)
 
 
 -- Style
@@ -36,8 +37,6 @@ initialModel =
 
 -- Input
 
-type Msg = Jump | NoOp
-
 keyCodeToMsg : KeyCode -> Msg
 keyCodeToMsg code = case code of
   32 -> Jump
@@ -47,7 +46,7 @@ keyCodeToMsg code = case code of
 -- Update
 
 update : Msg -> Model -> (Model, Cmd Msg)
-update _ model = { model | me = Human.update model.me } ! []
+update msg model = { model | me = Human.update msg model.me } ! []
 
 
 -- View
