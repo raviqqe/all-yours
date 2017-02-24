@@ -1,14 +1,12 @@
 module Human exposing (..)
 
-import Color exposing (..)
 import Collage exposing (..)
 import Element exposing (..)
-import Html exposing (..)
-import Keyboard exposing (..)
 
 
 -- Style
 
+dummyImageUrl : String
 dummyImageUrl = "https://www.raviqqe.com/favicon.png"
 
 

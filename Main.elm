@@ -11,9 +11,8 @@ import Human exposing (Human)
 
 (gameWidth, gameHeight) = (600, 400)
 
+skyColor : Color
 skyColor = rgb 128 128 255
-
-dummyImageUrl = "https://www.raviqqe.com/favicon.png"
 
 
 -- Model
@@ -58,6 +57,7 @@ view model =
 
 -- Main
 
+main : Program Never Model Msg
 main = program
   { init = initialModel ! []
   , update = update
