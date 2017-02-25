@@ -1,8 +1,8 @@
-MAIN_HTML = 'src/Main.html'
+MAIN_HTML = 'Main.html'
 
 
-rule '.html' => '.elm' do |t|
-  sh "elm-make --yes --warn --output #{t.name} #{t.source}"
+file MAIN_HTML => Dir.glob('src/**/*.elm') do |t|
+  sh "elm-make --yes --warn --output #{t.name} src/Main.elm"
 end
 
 
