@@ -24,7 +24,7 @@ skyColor = rgb 128 128 255
 
 -- Model
 
-type alias Model =
+type alias Game =
   { human : Human
   , enemies : List Enemy
   , earth : Earth
@@ -35,7 +35,7 @@ type alias Model =
 
 -- Update
 
-update : Msg -> Model -> (Model, Cmd Msg)
+update : Msg -> Game -> (Game, Cmd Msg)
 update msg model =
   let
     newEnemies = case msg of
@@ -62,7 +62,7 @@ update msg model =
 
 -- View
 
-view : Model -> Html Msg
+view : Game -> Html Msg
 view model =
   body [] [
     div [style [
@@ -83,9 +83,9 @@ view model =
 
 -- Main
 
-main : Program Never Model Msg
+main : Program Never Game Msg
 main = program
-  { init = Model Human.initial [] Earth.initial Camera.initial 0 ! []
+  { init = Game Human.initial [] Earth.initial Camera.initial 0 ! []
   , update = update
   , view = view
   , subscriptions = \_ ->
