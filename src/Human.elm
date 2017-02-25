@@ -27,6 +27,7 @@ initial =
   , vy = 0
   }
 
+
 -- Update
 
 update : Msg -> Earth -> Human -> Human
