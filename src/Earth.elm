@@ -13,10 +13,14 @@ type alias Earth =
   }
 
 
+initialHeight : Float
+initialHeight = 100
+
+
 initial : Earth
 initial =
-  { top = 100
-  , height = 100
+  { top = initialHeight - toFloat (.height Camera.initial) / 2
+  , height = initialHeight
   , color = rgb 128 255 128
   }
 
