@@ -14,6 +14,6 @@ update : Float -> Earth -> Object a -> Object a
 update dt earth object =
   { object |
       x = object.x + object.vx * dt,
-      y = max earth.top object.y + object.vy * dt,
-      vy = object.vy - 1 * dt
+      y = max earth.top (object.y + object.vy * dt),
+      vy =  object.vy - if object.y > earth.top then 400 * dt else 0
   }

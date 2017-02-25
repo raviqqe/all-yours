@@ -36,7 +36,7 @@ initial =
 
 update : Msg -> Earth -> Human -> Human
 update msg earth human = case msg of
-  Jump -> { human | vy = 10 }
+  Jump -> { human | vy = 300 }
   Delta dt -> Phisics.update dt earth human
   NoOp -> human
 
