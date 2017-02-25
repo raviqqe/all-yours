@@ -7,5 +7,5 @@ type alias Camera =
   }
 
 
-camera : Camera
-camera = { width = 600, height = 400 }
+initial : Camera
+initial = { width = 600, height = 400 }

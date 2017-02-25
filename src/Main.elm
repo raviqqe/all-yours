@@ -7,8 +7,8 @@ import Html.Attributes exposing (..)
 import Keyboard exposing (..)
 import Time exposing (..)
 
-import Camera exposing (Camera, camera)
-import Earth exposing (Earth, earth)
+import Camera exposing (Camera)
+import Earth exposing (Earth)
 import Human exposing (Human)
 import Msg exposing (..)
 
@@ -29,9 +29,9 @@ type alias Model =
 
 initialModel : Model
 initialModel =
-  { human = Human 0 (earth.height - (toFloat camera.height) / 2) 0 0
-  , earth = earth
-  , camera = camera
+  { human = Human.initial
+  , earth = Earth.initial
+  , camera = Camera.initial
   }
 
 

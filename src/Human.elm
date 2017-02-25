@@ -3,6 +3,8 @@ module Human exposing (..)
 import Collage exposing (..)
 import Element exposing (..)
 
+import Camera
+import Earth
 import Msg exposing (..)
 import Phisics
 
@@ -22,6 +24,14 @@ type alias Human =
   , vy : Float
   }
 
+
+initial : Human
+initial =
+  { x = 0
+  , y = ((.height Earth.initial) - (toFloat (.height Camera.initial)) / 2)
+  , vx = 0
+  , vy = 0
+  }
 
 -- Update
 

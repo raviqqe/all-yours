@@ -2,7 +2,6 @@ module Earth exposing (..)
 
 import Color exposing (..)
 import Collage exposing (..)
-import Element exposing (..)
 
 import Camera exposing (..)
 
@@ -14,8 +13,8 @@ type alias Earth =
   }
 
 
-earth : Earth
-earth =
+initial : Earth
+initial =
   { top = 100
   , height = 100
   , color = rgb 128 255 128
