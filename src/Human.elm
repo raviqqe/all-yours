@@ -36,7 +36,7 @@ initial =
 
 update : Msg -> Earth -> Human -> Human
 update msg earth human = case msg of
-  Jump -> { human | vy = 300 }
+  Jump -> { human | vy = if human.y <= earth.top then 300 else human.vy }
   Delta dt -> Phisics.update dt earth human
   NoOp -> human
 
