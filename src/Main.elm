@@ -46,7 +46,7 @@ keyCodeToMsg code = case code of
 -- Update
 
 update : Msg -> Model -> (Model, Cmd Msg)
-update msg model = { model | human = Human.update msg model.human } ! []
+update msg model = { model | human = Human.update msg model.earth model.human } ! []
 
 
 -- View

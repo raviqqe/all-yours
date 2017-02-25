@@ -3,7 +3,7 @@ module Human exposing (..)
 import Collage exposing (..)
 import Element exposing (..)
 
-import Earth
+import Earth exposing (Earth)
 import Msg exposing (..)
 import Phisics
 
@@ -34,10 +34,10 @@ initial =
 
 -- Update
 
-update : Msg -> Human -> Human
-update msg human = case msg of
+update : Msg -> Earth -> Human -> Human
+update msg earth human = case msg of
   Jump -> { human | vy = 10 }
-  Delta dt -> Phisics.update dt human
+  Delta dt -> Phisics.update dt earth human
   NoOp -> human
 
 
