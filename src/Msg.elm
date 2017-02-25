@@ -3,4 +3,4 @@ module Msg exposing (..)
 import Time exposing (..)
 
 
-type Msg = Jump | Delta Time | NoOp
+type Msg = Jump | Clock Time | Delta Time | GenEnemy | NoOp

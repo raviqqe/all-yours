@@ -4,14 +4,9 @@ import Collage exposing (..)
 import Element exposing (..)
 
 import Earth exposing (Earth)
+import Debugs
 import Msg exposing (..)
 import Phisics
-
-
--- Style
-
-dummyImageUrl : String
-dummyImageUrl = "https://www.raviqqe.com/favicon.png"
 
 
 -- Model
@@ -38,13 +33,13 @@ update : Msg -> Earth -> Human -> Human
 update msg earth human = case msg of
   Jump -> { human | vy = if human.y <= earth.top then 300 else human.vy }
   Delta dt -> Phisics.update dt earth human
-  NoOp -> human
+  _ -> human
 
 
 -- View
 
 view : Human -> Form
 view human =
-  fittedImage 10 20 dummyImageUrl |>
+  fittedImage 10 20 Debugs.dummyImageUrl |>
   toForm |>
   move (human.x, human.y)
