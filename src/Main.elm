@@ -29,6 +29,7 @@ type alias Model =
   , enemies : List Enemy
   , earth : Earth
   , camera : Camera
+  , lastEnemyTime : Time
   }
 
 
@@ -36,17 +37,27 @@ type alias Model =
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
-  { model |
-      human = Human.update msg model.earth model.human,
-      enemies =
-        List.map
-          (Enemy.update msg model.earth)
-          (if msg == GenEnemy then Enemy.initial :: model.enemies
-                              else model.enemies)
-  } ! [case msg of
-    Clock _ -> Random.generate (\i -> if i % 3 == 0 then GenEnemy else NoOp)
-                               (Random.int minInt maxInt)
-    _ -> Cmd.none]
+  let
+    newEnemies = case msg of
+      GenEnemy _ -> Enemy.initial :: model.enemies
+      _ -> model.enemies
+
+    generateEnemy =
+      case msg of
+        Clock t -> Random.generate
+          (\i -> if t - model.lastEnemyTime > 500 && i % 3000 == 0 then GenEnemy t else NoOp)
+          (Random.int minInt maxInt)
+        _ -> Cmd.none
+  in
+    { model |
+        human = Human.update msg model.earth model.human,
+        enemies = List.map (Enemy.update msg model.earth) newEnemies,
+        lastEnemyTime = case msg of
+          GenEnemy t -> t
+          _ -> model.lastEnemyTime
+    } ! [
+      generateEnemy
+    ]
 
 
 -- View
@@ -74,7 +85,7 @@ view model =
 
 main : Program Never Model Msg
 main = program
-  { init = Model Human.initial [] Earth.initial Camera.initial ! []
+  { init = Model Human.initial [] Earth.initial Camera.initial 0 ! []
   , update = update
   , view = view
   , subscriptions = \_ ->
@@ -85,6 +96,6 @@ main = program
               _ -> NoOp
             )
         , AnimationFrame.diffs (inSeconds >> Delta)
-        , every second Clock
+        , every millisecond Clock
         ]
   }
