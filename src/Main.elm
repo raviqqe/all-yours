@@ -27,21 +27,6 @@ type alias Model =
   , camera : Camera
   }
 
-initialModel : Model
-initialModel =
-  { human = Human.initial
-  , earth = Earth.initial
-  , camera = Camera.initial
-  }
-
-
--- Input
-
-keyCodeToMsg : KeyCode -> Msg
-keyCodeToMsg code = case code of
-  32 -> Jump
-  _ -> NoOp
-
 
 -- Update
 
@@ -74,12 +59,16 @@ view model =
 
 main : Program Never Model Msg
 main = program
-  { init = initialModel ! []
+  { init = Model Human.initial Earth.initial Camera.initial ! []
   , update = update
+  , view = view
   , subscriptions = \_ ->
       Sub.batch
-        [ Keyboard.downs keyCodeToMsg
+        [ Keyboard.downs (\code ->
+            case code of
+              32 -> Jump
+              _ -> NoOp
+            )
         , AnimationFrame.diffs (inSeconds >> Delta)
         ]
-  , view = view
   }
